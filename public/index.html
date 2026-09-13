@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Life Happens in Moments — Sandeep Malla</title>
+  <meta name="description" content="A philosophy of participation, memory & life. The invisible architecture of everyday life." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/site.css" />
+</head>
+<body class="landing">
+  <div class="bg-glow" aria-hidden="true"></div>
+  <header class="top">
+    <span class="mark">★</span>
+    <span class="brand">Life Happens in Moments</span>
+    <a class="top-link" href="/analytics.html" id="nav-analytics" hidden>Analytics</a>
+  </header>
+
+  <main class="hero">
+    <div class="cover-wrap">
+      <img class="cover" src="/static/img/cover.jpg" alt="Book cover: Life Happens in Moments by Sandeep Malla" />
+    </div>
+    <div class="copy">
+      <p class="eyebrow">A philosophy of participation, memory &amp; life</p>
+      <h1>Life Happens<br /><em>in Moments</em></h1>
+      <p class="sub">The Invisible Architecture of Everyday Life</p>
+      <p class="by">Sandeep Malla</p>
+      <p class="price"><span class="price-label">Price</span> <strong>Rs.2999/-</strong></p>
+      <blockquote>
+        Life is not measured in transactions.<br />
+        <strong>It is remembered in moments.</strong>
+      </blockquote>
+      <p class="blurb">
+        Through ten profound acts, this book explores how moments shape our relationships,
+        decisions, memories, and destiny — and how living through moments brings more
+        presence, purpose, and peace.
+      </p>
+
+      <div class="pillars">
+        <div><span>♡</span><strong>A new lens</strong><em>Presence over transactions</em></div>
+        <div><span>✎</span><strong>Lasting insights</strong><em>Moments that define us</em></div>
+        <div><span>❀</span><strong>Life applying</strong><em>Intentional every day</em></div>
+        <div><span>✦</span><strong>Part of a trilogy</strong><em>Decisions · Moments · Trust</em></div>
+      </div>
+
+      <section class="gate" id="gate">
+        <h2>Read the book</h2>
+        <p class="note">Protected viewer — sign in with Google (Momentra Firebase). No download, no print, personal watermark.</p>
+        <p class="auth-status" id="auth-status">Sign in with Google to unlock the protected reader</p>
+        <p class="err" id="auth-error" hidden></p>
+
+        <div class="auth-stack" id="signed-out">
+          <button class="btn provider google" type="button" id="btn-google">
+            <span class="provider-icon" aria-hidden="true">G</span>
+            Continue with Google
+          </button>
+        </div>
+
+        <div class="auth-stack" id="signed-in" hidden>
+          <a class="btn primary" href="/read.html">Continue reading →</a>
+          <a class="btn" href="/analytics.html">View reading analytics</a>
+          <button class="btn" type="button" id="btn-signout">Sign out</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>Moments connect us. Memories remain. Life continues.</p>
+    <p class="fine">© Sandeep Malla · Cloudflare Pages · Firebase momentra-v2</p>
+  </footer>
+  <script type="module">
+    import { onAuthStateChanged, auth } from "/static/js/firebase-client.js";
+    onAuthStateChanged(auth, (user) => {
+      const link = document.getElementById("nav-analytics");
+      if (link) link.hidden = !user;
+    });
+  </script>
+  <script type="module" src="/static/js/landing.js"></script>
+</body>
+</html>
