@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Book analytics — Life Happens in Moments</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/site.css" />
+</head>
+<body class="landing analytics-page">
+  <div class="bg-glow" aria-hidden="true"></div>
+  <header class="top">
+    <span class="mark">★</span>
+    <span class="brand">Life Happens in Moments</span>
+    <a class="top-link" href="/read">Reader</a>
+    <a class="top-link" href="/">Home</a>
+  </header>
+
+  <main class="analytics-main">
+    <p class="eyebrow">Your reading</p>
+    <h1>Book analytics</h1>
+    <p class="sub analytics-sub">Tracked for {{ profile.display_name or profile.email or profile.uid }} · synced with Momentra Firebase</p>
+
+    <section class="analytics-grid" aria-label="Reading summary">
+      <div class="stat">
+        <span>Progress</span>
+        <strong>{{ stats.progress_pct }}%</strong>
+        <em>Page {{ stats.max_page }} of {{ stats.total_pages }}</em>
+      </div>
+      <div class="stat">
+        <span>Page views</span>
+        <strong>{{ stats.total_page_views }}</strong>
+        <em>Across {{ stats.unique_pages }} unique pages</em>
+      </div>
+      <div class="stat">
+        <span>Sessions</span>
+        <strong>{{ stats.sessions }}</strong>
+        <em>Last {{ stats.last_seen_human }}</em>
+      </div>
+      <div class="stat">
+        <span>Sign-in</span>
+        <strong class="stat-provider">{{ profile.provider or "—" }}</strong>
+        <em>{{ profile.email or "No email shared" }}</em>
+      </div>
+    </section>
+
+    <section class="analytics-panel">
+      <h2>Recent activity</h2>
+      {% if recent %}
+      <ul class="activity-list">
+        {% for row in recent %}
+        <li>
+          <strong>{{ row.name }}</strong>
+          <span>{{ row.detail }}</span>
+          <em>{{ row.when }}</em>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="note">Open the reader and turn a few pages — activity will appear here and in Firebase Analytics (G-0MBM849ZFR).</p>
+      {% endif %}
+    </section>
+
+    <section class="analytics-panel">
+      <h2>Firebase Analytics</h2>
+      <p class="note">
+        Aggregate book events stream to the same Momentra project
+        (<code>momentra-v2</code>. Open
+        <a href="https://console.firebase.google.com/project/momentra-v2/analytics/events" target="_blank" rel="noopener">Analytics → Events</a>
+        for site-wide login, page_view, and reading_progress reports.
+      </p>
+    </section>
+
+    <p class="analytics-actions">
+      <a class="btn primary" href="/read">Back to reader</a>
+    </p>
+  </main>
+</body>
+</html>
