@@ -2,13 +2,24 @@
 
 Protected Firebase-gated flip-book (Sandeep Malla).
 
-## Cloudflare Pages
-- **Build command:** `npm run build`
-- **Output directory:** `public`
-- Build copies `static/` + compressed `private/book.pdf` into `public/` (PDF must stay under 25 MiB).
+## Cloudflare Pages (`lifehappens-books`)
+Custom domain: **https://book.monytix.ai**
 
-Firebase project: `monytix-79dac`  
-Enable Google + Email/Password, and add your Pages domain under Auth → Authorized domains.
+**Required build settings**
+- Framework preset: None
+- Build command: `npm run build`
+- Build output directory: `public`
+- Root directory: `/` (empty)
+- Production branch: `main`
+
+`npm run build` copies `static/` + `private/book.pdf` into `public/` (PDF must stay under 25 MiB).
+
+## Firebase
+Project: `monytix-79dac`  
+Enable Google + Email/Password.  
+Authorized domains must include:
+- `book.monytix.ai`
+- `lifehappens-books.pages.dev`
 
 ## Docker (optional)
 ```bash

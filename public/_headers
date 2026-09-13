@@ -2,7 +2,14 @@
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer
+  Cache-Control: no-store
 
 /media/*
   Cache-Control: private, no-store
   X-Robots-Tag: noindex, nofollow
+
+/*.html
+  Cache-Control: no-store
+
+/
+  Cache-Control: no-store
