@@ -1,10 +1,22 @@
-# lifehappens_books
+# Life Happens in Decisions
 
-*Life Happens in Decisions* — Firebase-gated flip-book site.
+Protected Firebase-gated flip-book site for *Life Happens in Decisions* (Sandeep Malla).
 
-See [`decisions/`](./decisions/) for the Docker/Flask reader.
+## Stack
+- Flask + Gunicorn + Docker
+- Firebase Auth (Google + Email/Password)
+- PDF.js + StPageFlip reader
 
+## Run
 ```bash
-cd decisions
 docker compose up -d --build
 ```
+Site: http://localhost:4411
+
+## Firebase Console
+1. Enable **Google** and **Email/Password** sign-in
+2. Add authorized domain for your host (e.g. `192.168.68.108` for LAN)
+
+## Notes
+- PDF lives in `private/book.pdf` (not served as a static download)
+- Access requires Firebase login; server verifies ID tokens
