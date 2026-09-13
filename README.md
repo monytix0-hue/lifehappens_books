@@ -34,3 +34,14 @@ Firebase CLI account: `magnatepoint24@gmail.com` · project: `monytix-79dac`.
 ```bash
 npm run pages:dev
 ```
+
+## Life Happens in Decisions (Docker)
+
+Firebase-gated flip-book for *Life Happens in Decisions* lives in [`decisions/`](./decisions/).
+
+```bash
+cd decisions
+docker compose up -d --build
+```
+
+Opens on port **4411**. Requires Firebase Google + Email/Password enabled on project `monytix-79dac`, and your host added as an authorized domain.

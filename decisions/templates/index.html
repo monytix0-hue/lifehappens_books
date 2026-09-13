@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Life Happens in Decisions — Sandeep Malla</title>
+  <meta name="description" content="A philosophy of choice, consequence & awareness. Ten weights every decision carries—and how to carry them wisely." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/site.css?v=dec2" />
+</head>
+<body class="landing theme-decisions">
+  <div class="bg-glow" aria-hidden="true"></div>
+  <header class="top">
+    <span class="mark">✦</span>
+    <span class="brand">Life Happens in Decisions</span>
+  </header>
+
+  <main class="hero">
+    <div class="cover-wrap">
+      <img class="cover" src="/static/img/cover.jpg" alt="Book cover: Life Happens in Decisions by Sandeep Malla" />
+    </div>
+    <div class="copy">
+      <p class="eyebrow">A philosophy of choice, consequence &amp; awareness</p>
+      <h1>Life Happens<br /><em>in Decisions</em></h1>
+      <p class="sub">Ten weights every decision carries—and how to carry them wisely</p>
+      <p class="by">Sandeep Malla</p>
+      <p class="price"><span class="price-label">Price</span> <strong>Rs.2999/-</strong></p>
+      <blockquote>
+        Clarity does not come from more answers.<br />
+        <strong>It comes from better awareness.</strong>
+      </blockquote>
+      <p class="blurb">
+        Every decision carries a hidden weight. Some open doors. Some close them.
+        Some you’ll only understand much later. This book helps you pause, reflect,
+        and make decisions that truly matter — through ten timeless weights for
+        clarity, depth, and lasting wisdom.
+      </p>
+
+      <div class="pillars">
+        <div><span>⏱</span><strong>Time</strong><em>The most overlooked factor in every decision</em></div>
+        <div><span>⚖</span><strong>Ten weights</strong><em>Evaluate every choice with clarity</em></div>
+        <div><span>↗</span><strong>Framework</strong><em>Navigate uncertainty with confidence</em></div>
+        <div><span>✦</span><strong>Trilogy</strong><em>Decisions · Moments · Proofs</em></div>
+      </div>
+
+      <section class="gate" id="gate">
+        <h2>Sign in to read</h2>
+        <p class="note">Firebase login is required. Protected viewer — no download, no print, personal watermark.</p>
+        {% if unlocked %}
+        <p class="signed-in">Signed in{% if user_email %} as <strong>{{ user_email }}</strong>{% endif %}</p>
+        <div class="auth-actions">
+          <a class="btn primary" href="/read">Continue reading →</a>
+          <button type="button" class="btn" id="btn-logout">Sign out</button>
+        </div>
+        {% else %}
+        <button type="button" class="btn primary wide" id="btn-google">Continue with Google</button>
+        <p class="or">or email</p>
+        <form id="email-auth-form" autocomplete="on">
+          <label for="auth-email">Email</label>
+          <input id="auth-email" type="email" required placeholder="you@example.com" />
+          <label for="auth-password">Password</label>
+          <input id="auth-password" type="password" required minlength="6" placeholder="At least 6 characters" />
+          <button class="btn primary wide" type="submit" id="email-submit">Sign in with email</button>
+        </form>
+        <p class="auth-switch"><a href="#" id="auth-mode-toggle">Need an account? Create one</a></p>
+        <p id="auth-status" class="auth-status"></p>
+        <p id="auth-error" class="err" hidden></p>
+        {% endif %}
+      </section>
+      <script id="firebase-config" type="application/json">{{ firebase_config | tojson }}</script>
+      <script type="module" src="/static/js/firebase-auth.js?v=fb1"></script>
+    </div>
+  </main>
+
+  <footer>
+    <p>Better decisions today. A better life tomorrow.</p>
+    <p class="fine">© Sandeep Malla · Protected preview</p>
+  </footer>
+  <script src="/static/js/landing.js"></script>
+</body>
+</html>

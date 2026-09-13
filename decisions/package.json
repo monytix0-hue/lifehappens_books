@@ -1,0 +1,7 @@
+{
+  "name": "life-happens-decisions-site",
+  "private": true,
+  "dependencies": {
+    "firebase": "^11.10.0"
+  }
+}
