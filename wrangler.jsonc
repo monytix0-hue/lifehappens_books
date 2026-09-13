@@ -1,0 +1,31 @@
+{
+  "name": "life-happens-book",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-13",
+  "workers_dev": true,
+  "preview_urls": false,
+  "containers": [
+    {
+      "class_name": "BookContainer",
+      "image": "./Dockerfile",
+      "max_instances": 2
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "BOOK_CONTAINER",
+        "class_name": "BookContainer"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["BookContainer"]
+    }
+  ],
+  "vars": {
+    "ACCESS_CODE": "moments"
+  }
+}

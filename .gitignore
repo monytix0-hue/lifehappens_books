@@ -10,3 +10,7 @@ life-happens-in-moments.pdf
 cover-001.jpg
 back-187.jpg
 page2now-002.jpg
+node_modules/
+.wrangler/
+dist/
+.dev.vars
