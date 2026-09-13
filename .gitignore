@@ -10,5 +10,3 @@ dist/
 *.log
 private/book_analytics.json
 private/book_analytics.tmp
-public/static/
-public/media/
