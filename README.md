@@ -27,7 +27,7 @@ Add your Worker hostname (without `https://`) to Firebase Auth authorized domain
 
 ## Custom domain
 
-In the Cloudflare dashboard: **Workers & Pages → life-happens-book → Settings → Domains & Routes → Add**.
+In the Cloudflare dashboard: **Workers & Pages → books → Settings → Domains & Routes → Add**.
 
 ## Secrets (recommended)
 
