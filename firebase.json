@@ -1,4 +1,18 @@
 {
+  "auth": {
+    "providers": {
+      "anonymous": false,
+      "emailPassword": false,
+      "googleSignIn": {
+        "oAuthBrandDisplayName": "Life Happens in Moments",
+        "supportEmail": "magnatepoint24@gmail.com",
+        "authorizedRedirectUris": [
+          "http://localhost",
+          "https://books.pages.dev"
+        ]
+      }
+    }
+  },
   "firestore": {
     "rules": "firestore.rules"
   },

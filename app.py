@@ -41,7 +41,7 @@ app.secret_key = os.environ.get("SECRET_KEY", secrets.token_hex(32))
 ACCESS_CODE = os.environ.get("ACCESS_CODE", "moments")
 TOKEN_TTL = int(os.environ.get("TOKEN_TTL", "7200"))  # 2 hours
 STREAM_SECRET = os.environ.get("STREAM_SECRET", app.secret_key)
-FIREBASE_PROJECT_ID = os.environ.get("FIREBASE_PROJECT_ID", "momentra-v2")
+FIREBASE_PROJECT_ID = os.environ.get("FIREBASE_PROJECT_ID", "monytix-79dac")
 TOTAL_PAGES = 187
 
 

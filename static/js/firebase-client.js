@@ -22,15 +22,15 @@ import {
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
-/** Same Firebase project as Momentra V2 */
+/** Firebase project monytix-79dac (magnatepoint24@gmail.com) */
 const firebaseConfig = {
-  apiKey: "AIzaSyCA-jxHmyvPSkTyosYcE139qUwyjCO9Pi0",
-  authDomain: "momentra-v2.firebaseapp.com",
-  projectId: "momentra-v2",
-  storageBucket: "momentra-v2.firebasestorage.app",
-  messagingSenderId: "315259659778",
-  appId: "1:315259659778:web:d3d5117dd1484e2588291b",
-  measurementId: "G-0MBM849ZFR",
+  apiKey: "AIzaSyCPn4S5jhRRFlBgImLBtIgfC4HzCLwJ8q4",
+  authDomain: "monytix-79dac.firebaseapp.com",
+  projectId: "monytix-79dac",
+  storageBucket: "monytix-79dac.firebasestorage.app",
+  messagingSenderId: "636445644991",
+  appId: "1:636445644991:web:79e655865f8f255cd1ce0a",
+  measurementId: "G-41N9QLGP5D",
 };
 
 const BOOK_URL = "/media/life-happens-in-moments.pdf";
@@ -85,7 +85,7 @@ function describeAuthError(error) {
     return "Sign-in was cancelled.";
   }
   if (code.includes("operation-not-allowed")) {
-    return "Google sign-in is not enabled in the Momentra Firebase project yet.";
+    return "Google sign-in is not enabled in the Monytix Firebase project yet.";
   }
   return message || "Sign-in failed.";
 }

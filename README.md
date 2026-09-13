@@ -1,6 +1,6 @@
 # Life Happens in Moments — Cloudflare Pages
 
-Static site on **Cloudflare Pages** (no Workers / Containers). Google sign-in and analytics use Firebase project `momentra-v2`.
+Static site on **Cloudflare Pages** (no Workers / Containers). Google sign-in and analytics use Firebase project `monytix-79dac`.
 
 ## Deploy
 
@@ -26,6 +26,8 @@ Add your Pages host to Firebase Auth → Authorized domains:
 
 - `books.pages.dev`
 - your custom domain, if any
+
+Firebase CLI account: `magnatepoint24@gmail.com` · project: `monytix-79dac`.
 
 ## Local
 
