@@ -1,13 +1,19 @@
 import * as pdfjsLib from "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
+import {
+  ensureAnalytics,
+  trackEvent,
+  loadBookPdfUrl,
+  requireAuthRedirect,
+  viewerIdFor,
+} from "./firebase-client.js";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";
 
 const STORAGE_KEY = "lhid-last-page";
+let lastTrackedPage = 0;
 
 const body = document.body;
-const viewerId = body.dataset.viewer || "guest";
-const token = body.dataset.token || "";
 const pageInd = document.getElementById("page-ind");
 const pageJump = document.getElementById("page-jump");
 const wm = document.getElementById("wm");
@@ -19,7 +25,9 @@ const lastPageEl = document.getElementById("last-page");
 const progressLabel = document.getElementById("progress-label");
 const progressBar = document.getElementById("progress-bar");
 const indexList = document.getElementById("index-list");
+const viewerLabel = document.getElementById("viewer-label");
 
+let viewerId = "guest";
 let pdf = null;
 let flip = null;
 let zoom = 1;
@@ -163,7 +171,7 @@ function saveLast(page) {
 
 function updateSide(pdfPage) {
   currentPdfPage = pdfPage;
-  const total = pdf?.numPages || 187;
+  const total = pdf?.numPages || 184;
   const pct = Math.round((pdfPage / total) * 100);
   nowPageEl.textContent = `${pdfPage} / ${total}`;
   const last = readLastStored();
@@ -185,29 +193,28 @@ function markPages() {
   pageInd.textContent = `${pdfPage} / ${pdf.numPages}`;
   saveLast(pdfPage);
   updateSide(pdfPage);
+  if (pdfPage !== lastTrackedPage) {
+    lastTrackedPage = pdfPage;
+    const pct = Math.round((pdfPage / pdf.numPages) * 100);
+    trackEvent("page_view", { page: pdfPage, page_number: pdfPage, progress_pct: pct });
+    if (pct === 25 || pct === 50 || pct === 75 || pct === 100 || pdfPage % 10 === 0) {
+      trackEvent("reading_progress", { page: pdfPage, progress_pct: pct });
+    }
+  }
 }
 
 function buildIndex() {
   const total = pdf.numPages;
-  // PDF order: 1=C1 cover, 2-11=cover1-10, 12-183=page1-172, 184=C2
   const entries = [
     { label: "Cover", page: 1 },
-    { label: "Title", page: 2 },
-    { label: "Map of the book", page: 11 },
-    { label: "Introduction", page: 12 }, // page1
-    { label: "Weight I — Time", page: 22 }, // page11
-    { label: "Weight II — Comfort", page: 38 },
-    { label: "Weight III — Risk", page: 54 },
-    { label: "Weight IV — Obligations", page: 70 },
-    { label: "Weight V — Identity", page: 86 },
-    { label: "Weight VI — Relationships", page: 102 },
-    { label: "Weight VII — Opportunity", page: 118 },
-    { label: "Weight VIII — Attention", page: 134 },
-    { label: "Weight IX — Resilience", page: 150 },
-    { label: "Weight X — Legacy", page: 166 },
-    { label: "About the author", page: 183 },
-    { label: "Back cover", page: total },
+    { label: "Title page", page: 2 },
+    { label: "Copyright", page: 5 },
+    { label: "Preface", page: 6 },
   ];
+  for (let p = 10; p < total; p += 10) {
+    entries.push({ label: `Page ${p}`, page: p });
+  }
+  entries.push({ label: "Back cover", page: total });
   indexList.innerHTML = "";
   for (const e of entries) {
     const btn = document.createElement("button");
@@ -397,26 +404,39 @@ window.addEventListener("resize", () => {
 fillWatermark();
 lastPageEl.textContent = readLastStored() ? String(readLastStored()) : "—";
 
-const url = `/api/book?t=${encodeURIComponent(token)}`;
-if (!window.St || !St.PageFlip) {
-  pageInd.textContent = "Flip engine missing";
-} else {
+async function boot() {
+  const user = await requireAuthRedirect();
+  if (!user) return;
+
+  viewerId = viewerIdFor(user);
+  body.dataset.viewer = viewerId;
+  if (viewerLabel) viewerLabel.textContent = viewerId;
+  fillWatermark();
+  ensureAnalytics();
+  await trackEvent("reading_session", {});
+
+  if (!window.St || !St.PageFlip) {
+    pageInd.textContent = "Flip engine missing";
+    return;
+  }
+
   pageInd.textContent = "Loading…";
-  pdfjsLib
-    .getDocument({ url, withCredentials: true })
-    .promise.then(async (doc) => {
-      pdf = doc;
-      buildIndex();
-      buildLeaves();
-      createFlip();
-      const last = readLastStored();
-      const startIdx = last > 1 ? pdfToFlipIndex(last) : 0;
-      if (last > 1) flip.turnToPage(startIdx);
-      await paintAround(startIdx);
-      markPages();
-    })
-    .catch((err) => {
-      pageInd.textContent = "Unable to load";
-      console.error(err);
-    });
+  try {
+    const url = await loadBookPdfUrl();
+    const doc = await pdfjsLib.getDocument({ url }).promise;
+    pdf = doc;
+    buildIndex();
+    buildLeaves();
+    createFlip();
+    const last = readLastStored();
+    const startIdx = last > 1 ? pdfToFlipIndex(last) : 0;
+    if (last > 1) flip.turnToPage(startIdx);
+    await paintAround(startIdx);
+    markPages();
+  } catch (err) {
+    pageInd.textContent = "Unable to load";
+    console.error(err);
+  }
 }
+
+boot();

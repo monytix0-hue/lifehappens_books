@@ -1,0 +1,8 @@
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+
+/media/*
+  Cache-Control: private, no-store
+  X-Robots-Tag: noindex, nofollow
