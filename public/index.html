@@ -15,7 +15,6 @@
   <header class="top">
     <span class="mark">★</span>
     <span class="brand">Life Happens in Moments</span>
-    <a class="top-link" href="/analytics.html" id="nav-analytics" hidden>Analytics</a>
   </header>
 
   <main class="hero">
@@ -60,7 +59,6 @@
 
         <div class="auth-stack" id="signed-in" hidden>
           <a class="btn primary" href="/read.html">Continue reading →</a>
-          <a class="btn" href="/analytics.html">View reading analytics</a>
           <button class="btn" type="button" id="btn-signout">Sign out</button>
         </div>
       </section>
@@ -69,15 +67,8 @@
 
   <footer>
     <p>Moments connect us. Memories remain. Life continues.</p>
-    <p class="fine">© Sandeep Malla · Cloudflare Pages · Firebase momentra-v2</p>
+    <p class="fine">© Sandeep Malla · Protected preview</p>
   </footer>
-  <script type="module">
-    import { onAuthStateChanged, auth } from "/static/js/firebase-client.js";
-    onAuthStateChanged(auth, (user) => {
-      const link = document.getElementById("nav-analytics");
-      if (link) link.hidden = !user;
-    });
-  </script>
   <script type="module" src="/static/js/landing.js"></script>
 </body>
 </html>

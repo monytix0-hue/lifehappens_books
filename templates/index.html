@@ -15,9 +15,6 @@
   <header class="top">
     <span class="mark">★</span>
     <span class="brand">Life Happens in Moments</span>
-    {% if unlocked %}
-    <a class="top-link" href="/analytics">Analytics</a>
-    {% endif %}
   </header>
 
   <main class="hero">
@@ -56,7 +53,6 @@
         <div class="auth-stack" id="gate-actions" data-signed-in="{% if unlocked %}1{% else %}0{% endif %}">
           {% if unlocked %}
           <a class="btn primary" href="/read">Continue reading →</a>
-          <a class="btn" href="/analytics">View reading analytics</a>
           <button class="btn" type="button" id="btn-signout">Sign out</button>
           {% else %}
           <button class="btn provider google" type="button" id="btn-google">
